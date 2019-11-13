@@ -11,4 +11,9 @@ class Role extends Model
     {
         return $this->hasMany(Permission::class);
     }
+
+    public function documents()
+    {
+        return $this->hasManyThrough('App\Document', 'App\Permission');
+    }
 }

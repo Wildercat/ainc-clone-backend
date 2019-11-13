@@ -19,11 +19,6 @@ class PermissionSeeder extends Seeder
         ]);
         factory(Permission::class)->create([
             'user_id' => 2,
-            'document_id' => 3,
-            'role_id' => 2,
-        ]);
-        factory(Permission::class)->create([
-            'user_id' => 2,
             'document_id' => 2,
             'role_id' => 2,
         ]);

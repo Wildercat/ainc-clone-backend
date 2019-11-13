@@ -29,11 +29,13 @@ class User extends Authenticatable
         }
         return $docArr;
 
+
     }
-    public function all_docs()
+    public function docs_w_permissions()
     {
         return $this->belongsToMany('App\Document', 'permissions', 'user_id', 'document_id');
     }
+
     public function documents()
     {
         return $this->hasMany(Document::class);
