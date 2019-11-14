@@ -27,5 +27,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', function () {
     return UserResource::collection(User::all());
 });
-Route::get('/documents', 'DocumentController@index');
-Route::get('/documents/{document}', 'DocumentController@show')->name('documents.show');
+// Route::get('/documents', 'DocumentController@index');
+// Route::get('/documents/{document}', 'DocumentController@show')->name('documents.show');
