@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DocumentResource extends JsonResource
@@ -16,7 +17,8 @@ class DocumentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'owner_id' => $this->owner_id,
+            'owner_id' => $this->user_id,
+            'owner' =>  new UserResource($this->whenLoaded('user')),
             'title' => $this->title,
             'content' => $this->content,
             'created_at' => $this->created_at,

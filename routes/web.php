@@ -11,6 +11,11 @@
 |
 */
 
+use App\Document;
+use App\Http\Resources\DocumentResource;
+use App\User;
+use App\Http\Resources\UserResource;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +23,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/users', function () {
+    return UserResource::collection(User::all());
+});
+Route::get('/documents', 'DocumentController@index');
+Route::get('/documents/{document}', 'DocumentController@show')->name('documents.show');

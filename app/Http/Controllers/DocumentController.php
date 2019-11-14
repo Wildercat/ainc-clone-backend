@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\Http\Resources\DocumentResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -15,7 +17,7 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        return DocumentResource::collection(Auth::user()->all_docs());
     }
 
     /**
@@ -36,7 +38,21 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //Storage::put()
+        request()->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        // Document::create([
+        //     'user_id' => Auth::id(),
+        //     'title' => $request->title,
+        //     'content' => $request->content
+        // ]);
+        $doc = new Document();
+        $doc->user_id = Auth::id();
+        $doc->title = $request->title;
+        $doc->content = $request->content;
+        $doc->save();
+        return $this->show($doc);
     }
 
     /**
@@ -47,7 +63,7 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        //
+        return new DocumentResource($document);
     }
 
     /**
@@ -70,7 +86,10 @@ class DocumentController extends Controller
      */
     public function update(Request $request, Document $document)
     {
-        //
+        $document->title = $request->title;
+        $document->content = $request->content;
+        $document->save();
+        return $this->show($document);
     }
 
     /**
@@ -81,6 +100,7 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        //
+        $document->delete();
+        return $this->index();
     }
 }

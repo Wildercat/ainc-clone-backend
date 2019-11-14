@@ -16,7 +16,7 @@ class User extends Authenticatable
         foreach ($perms as $perm) {
             array_push($docArr, $perm->document);
         }
-        return $docArr;
+        return collect($docArr);
     }
     public function viewable_docs()
     {
@@ -27,9 +27,13 @@ class User extends Authenticatable
         foreach ($perms as $perm) {
             array_push($docArr, $perm->document);
         }
-        return $docArr;
+        return collect($docArr);
 
 
+    }
+    public function all_docs()
+    {
+        return $this->docs_w_permissions->union($this->documents);
     }
     public function docs_w_permissions()
     {

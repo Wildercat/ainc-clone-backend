@@ -39,4 +39,9 @@ class Document extends Model
         }
         return $docArr;
     }
+
+    public function path()
+    {
+        return route('documents.show', $this);
+    }
 }
